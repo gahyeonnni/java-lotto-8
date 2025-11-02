@@ -1,7 +1,6 @@
-package lotto.lotto;
+package lotto.domain;
 
-import lotto.errorMessage.ErrorMessage;
-
+import lotto.message.ErrorMessage;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -11,19 +10,15 @@ public class Lotto {
 
     public Lotto(List<Integer> numbers) {
         validate(numbers);
-        checkUniqueNumber(numbers);
-        this.numbers = numbers;
+        this.numbers = List.copyOf(numbers);
     }
 
     private void validate(List<Integer> numbers) {
         if (numbers.size() != 6) {
             throw new IllegalArgumentException("[ERROR] 로또 번호는 6개여야 합니다.");
         }
-    }
-
-    private void checkUniqueNumber(List <Integer> numbers) {
-        Set<Integer> uniq = new HashSet<>(numbers);
-        if (uniq.size() != 6) {
+        Set<Integer> unique = new HashSet<>(numbers);
+        if (unique.size() != 6) {
             throw new IllegalArgumentException(ErrorMessage.DUPLICATE_WINNING_NUMBER.message());
         }
     }
