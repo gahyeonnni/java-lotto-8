@@ -52,5 +52,4 @@ public class LottoService {
         double profitRate = ((double) totalPrize / purchaseAmount) * 100;
         return Double.parseDouble(String.format("%.1f", profitRate));
     }
-
 }
