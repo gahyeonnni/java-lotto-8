@@ -1,18 +1,12 @@
 package lotto.domain;
 
-import lotto.message.ErrorMessage;
-
 public class WinningLotto {
     private final Lotto winningLotto;
     private final LottoNumber bonusNumber;
 
     public WinningLotto(Lotto winningLotto, int bonusNumber) {
-        LottoNumber bonus = new LottoNumber(bonusNumber);
-        if (winningLotto.getNumbers().contains(bonus)) {
-            throw new IllegalArgumentException(ErrorMessage.DUPLICATE_BONUS_NUMBER.message());
-        }
         this.winningLotto = winningLotto;
-        this.bonusNumber = bonus;
+        this.bonusNumber = new LottoNumber(bonusNumber);
     }
 
     public LottoRank match(Lotto lotto) {
