@@ -22,18 +22,48 @@ public class LottoGame {
     }
 
     public void run() {
-        try {
-            int purchaseCount = inputService.getPurchaseCount();
-            List<Lotto> purchased = lottoService.createLottos(purchaseCount);
-            WinningLotto winning = inputService.getWinningLotto();
-            Map<LottoRank, Integer> result = lottoService.checkResults(purchased, winning);
-            double rate = lottoService.calculateProfitRate(result, purchaseCount * 1000);
-            outputView.printWinningStatistics(result, rate);
-            Console.close();
+        int purchaseCount = getValidPurchaseCount();
+        List<Lotto> purchased = lottoService.createLottos(purchaseCount);
+        WinningLotto winning = getValidWinningLotto();
+        Map<LottoRank, Integer> result = lottoService.checkResults(purchased, winning);
+        double rate = lottoService.calculateProfitRate(result, purchaseCount * 1000);
+        outputView.printWinningStatistics(result, rate);
+        Console.close();
+    }
+
+    private int getValidPurchaseCount() {
+        while (true) {
+            try {
+                return inputService.getPurchaseCount();
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
         }
-        catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-            run();
+    }
+
+    private WinningLotto getValidWinningLotto() {
+        List<Integer> winningNumbers = getValidWinningNumbers();
+        int bonusNumber = getValidBonusNumber(winningNumbers);
+        return inputService.createWinningLotto(winningNumbers, bonusNumber);
+    }
+
+    private List<Integer> getValidWinningNumbers() {
+        while (true) {
+            try {
+                return inputService.getWinningNumbers();
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    private int getValidBonusNumber(List<Integer> winningNumbers) {
+        while (true) {
+            try {
+                return inputService.getBonusNumber(winningNumbers);
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
 }
