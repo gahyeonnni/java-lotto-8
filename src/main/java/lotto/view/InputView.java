@@ -4,7 +4,6 @@ import camp.nextstep.edu.missionutils.Console;
 import lotto.message.IOMessage;
 
 public class InputView {
-
     public String getAmount() {
         System.out.println(IOMessage.ASK_PURCHASE_AMOUNT.message());
         return Console.readLine();
