@@ -1,13 +1,12 @@
-// lotto/controller/LottoGame.java
 package lotto.controller;
 
+import camp.nextstep.edu.missionutils.Console;
 import lotto.domain.Lotto;
 import lotto.domain.LottoRank;
 import lotto.domain.WinningLotto;
 import lotto.service.InputService;
 import lotto.service.LottoService;
 import lotto.view.OutputView;
-
 import java.util.List;
 import java.util.Map;
 
@@ -30,6 +29,7 @@ public class LottoGame {
             Map<LottoRank, Integer> result = lottoService.checkResults(purchased, winning);
             double rate = lottoService.calculateProfitRate(result, purchaseCount * 1000);
             outputView.printWinningStatistics(result, rate);
+            Console.close();
         }
         catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
