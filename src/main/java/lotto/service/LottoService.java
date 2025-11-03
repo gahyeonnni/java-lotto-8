@@ -6,7 +6,6 @@ import lotto.domain.LottoRank;
 import lotto.domain.WinningLotto;
 import lotto.generator.NumberGenerator;
 import lotto.view.OutputView;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
