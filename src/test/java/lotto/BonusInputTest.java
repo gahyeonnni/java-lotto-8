@@ -4,7 +4,9 @@ import lotto.domain.Lotto;
 import lotto.domain.LottoNumber;
 import lotto.domain.WinningLotto;
 import lotto.message.ErrorMessage;
+import lotto.service.InputService;
 import lotto.util.InputValidator;
+import lotto.view.InputView;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -67,20 +69,21 @@ class BonusInputTest {
 
     @DisplayName("보너스 번호가 당첨 번호와 중복되면 예외가 발생한다.")
     @Test
-    void 보너스번호_중복() {
-        List<LottoNumber> winningNumbers = List.of(
-                new LottoNumber(1),
-                new LottoNumber(2),
-                new LottoNumber(3),
-                new LottoNumber(4),
-                new LottoNumber(5),
-                new LottoNumber(6)
-        );
-        Lotto winningLotto = new Lotto(winningNumbers);
-        assertThatThrownBy(() -> new WinningLotto(winningLotto, 6))
+    void 보너스번호_중복_예외_발생() {
+        List<Integer> winningNumbers = List.of(1, 2, 3, 4, 5, 6);
+        InputView stubView = new InputView() {
+            @Override public String getBonusNumber() { return "1"; }
+            @Override public String getWinningNumber() { return "1,2,3,4,5,6"; }
+            @Override public String getAmount() { return "1000"; }
+        };
+
+        InputService inputService = new InputService(stubView, new InputValidator());
+
+        assertThatThrownBy(() -> inputService.getBonusNumber(winningNumbers))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage(ErrorMessage.DUPLICATE_BONUS_NUMBER.message());
     }
+
 
     @DisplayName("보너스 번호가 당첨 번호와 중복되지 않으면 정상적으로 생성된다.")
     @Test
