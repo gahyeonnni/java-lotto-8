@@ -7,6 +7,7 @@ import lotto.lotto.LottoNumberGenerator;
 import lotto.lotto.NumberGenerator;
 import lotto.util.InputValidator;
 
+//Factory 로 이름을 바꿔라
 public class Config {
     public LottoGame createGame() {
         InputValidator validator = new InputValidator();
