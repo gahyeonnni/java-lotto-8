@@ -5,7 +5,6 @@ import lotto.domain.LottoNumber;
 import lotto.domain.WinningLotto;
 import lotto.util.InputValidator;
 import lotto.view.InputView;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
